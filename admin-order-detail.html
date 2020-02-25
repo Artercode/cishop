@@ -7,7 +7,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 	<meta name="generator" content="Jekyll v3.8.6">
-	<title>Admin Order - Codeigniter E-Commerce</title>
+	<title>Admin Order Detail - Codeigniter E-Commerce</title>
 
 	<link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
 
@@ -70,87 +70,95 @@
 		</div>
 	</nav>
 	<!-- akhir navbar -->
-	<!-- admin order -->
+	<!-- admin order detail -->
 	<main role="main" class="container">
 		<div class="row">
 			<div class="col-md-10 mx-auto">
-				<div class="card mb-3">
-
-					<div class="card-header">
-						<span>Order</span>
-						<div class="float-right">
-							<form action="#">
-								<div class="input-group">
-									<input type="text" class="form-cotrol form-control-sm text-center"
-										placeholder="Cari">
-									<div class="input-group-append">
-										<button type="submit" class="btn btn-secondary btn-sm">
-											<i class="fas fa-search"></i>
-										</button>
-										<a href="#" class="btn btn-secondary btn-sm">
-											<i class="fas fa-eraser"></i>
-										</a>
-									</div>
+				<!-- detail order -->
+				<div class="row mb-3">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								Detail Order #01234123
+								<div class="float-right">
+									<span class="badge badge-pill badge-info">Menunggu Pembayaran</span>
 								</div>
-							</form>
+							</div>
+							<div class="card-body">
+								<p>Nama: Nama penerima</p>
+								<p>Telepon: 08991231231</p>
+								<p>Alamat: Jl. Sesama, No 123</p>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Produk</th>
+											<th class="text-center">Harga</th>
+											<th class="text-center">Jumlah</th>
+											<th class="text-center">Subtotal</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<p><img src="https://placehold.co/50x50" alt=""> <strong>Produk
+														Title</strong>
+												</p>
+											</td>
+											<td class="text-center">Rp100.000,-</td>
+											<td class="text-center">1</td>
+											<td class="text-center">Rp100.000,-</td>
+										</tr>
+										<tr>
+											<!-- total mengunakan 3 kolom -->
+											<td colspan="3"><strong>Total:</strong></td>
+											<td class="text-center"><strong>Rp100.000,-</strong></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="card-footer">
+								<form action="#">
+									<div class="input-group">
+										<select name="" id="" class="form-control">
+											<option value="waiting">Menunggu Pembayaran</option>
+											<option value="paid">Dibayar</option>
+											<option value="deliver">Dikirim</option>
+											<option value="cancel">Batal</option>
+										</select>
+										<div class="input-group-append">
+											<button type="submit" class="btn btn-primary">Simpan</button>
+										</div>
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
-					<div class="card-body">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Nomer</th>
-									<th>Tanggal</th>
-									<th>Total</th>
-									<th>Status</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- menunggu pembayaran -->
-								<tr>
-									<td><a href="orders-detail.html"><strong>#012341234</strong></a></td>
-									<td>2019/05/20</td>
-									<td>Rp300.000,-</td>
-									<td>
-										<span class="badge badge-pill badge-info">Menungu Pembayaran</span>
-									</td>
-								</tr>
-								<!-- dikirim -->
-								<tr>
-									<td><a href="orders-detail.html"><strong>#012341234</strong></a></td>
-									<td>2019/05/19</td>
-									<td>Rp300.000,-</td>
-									<td>
-										<span class="badge badge-pill badge-success">Dikirim</span>
-									</td>
-								</tr>
-								<!-- dibatalkan -->
-								<tr>
-									<td><a href="orders-detail.html"><strong>#012341234</strong></a></td>
-									<td>2019/05/10</td>
-									<td>Rp300.000,-</td>
-									<td>
-										<span class="badge badge-pill badge-danger">Dibatalkan</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<!-- row pagination -->
-						<nav aria-label="Page navigation example">
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li>
-							</ul>
-						</nav>
+				</div>
+				<!-- akhir detail order -->
+				<!-- bukti transfer -->
+				<div class="row mb-3">
+					<div class="col-md-8">
+						<div class="card">
+							<div class="card-header">
+								Bukti Transfer
+							</div>
+							<div class="card-body">
+								<p>Dari Rekening: 091234</p>
+								<p>a/n: IDStack</p>
+								<p>Nominal: Rp900.000,-</p>
+								<p>Catatan: -</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<img src="http://placehold.co/150x200" alt="">
 					</div>
 				</div>
+				<!-- akhir bukti transfer -->
 			</div>
 		</div>
 	</main>
-	<!-- akhir order -->
+	<!-- akhir admin order detail -->
 
 	<script src="assets/libs/jquery/jquery-3.4.1.min.js"></script>
 	<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
