@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Category_model extends MY_Model
 {
-    protected $perPage = 2;   // menimpa data yang ada di [9]MY_Model.php
+    protected $perPage = 5;   // menimpa data yang ada di [9]MY_Model.php
 
     public function getDefaultValues()
     {

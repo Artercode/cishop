@@ -35,8 +35,9 @@
                         </thead>
                         <tbody>
                             <!-- $no untuk membuat no urut dalam tabel -->
-                            <?php $no = 0;
-                            foreach ($content as $row) : $no++; ?>
+                            <!-- untuk $perPage harus diisi secara manual -->
+                            <?php $no = (($this->uri->segment(2) ?? 1) - 1) * 5; ?>
+                            <?php foreach ($content as $row) : $no++; ?>
                                 <tr>
                                     <td><?= $no ?></td>
                                     <td><?= $row->title ?></td>
