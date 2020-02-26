@@ -2,12 +2,13 @@ function createSlug() {
 	let title = $('#title').val();
 	$('#slug').val(string_to_slug(title));
 }
+
 // https://gist.github.com/codeguy/6684588
 function string_to_slug(str) {
 	str = str.replace(/^\s+|\s+$/g, ''); // trim
 	str = str.toLowerCase();
 
-	// remove accents, swap ñ for n, etc 
+	// remove accents, swap ñ for n, etc
 	var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
 	var to = "aaaaeeeeiiiioooouuuunc------";
 	for (var i = 0, l = from.length; i < l; i++) {
