@@ -43,20 +43,14 @@
                                     <td><?= $row->title ?></td>
                                     <td><?= $row->slug ?></td>
                                     <td>
-                                        <!-- delete form-->
-                                        <?= form_open("category/delete/$row->id", ['method' => 'POST']) ?>
-                                        <?= form_hidden('id', $row->id) ?>
-                                        <!-- mengarahkan ke halaman ke... di pagination -->
-                                        <a href="<?= base_url("category/$row->id") ?>">
+                                        <a href="<?= base_url("category/edit/$row->id") ?>">
                                             <button class="btn btn-sm">
                                                 <i class="fas fa-edit text-info"></i>
                                             </button>
                                         </a>
-                                        <button class="btn btn-sm" type="submit" onclick="return confirm('Apakah yakin ingin menghapus?')">
+                                        <button class="btn btn-sm" type="submit">
                                             <i class="fas fa-trash text-danger"></i>
                                         </button>
-                                        <?= form_close() ?>
-                                        <!-- akhir delete form-->
                                     </td>
                                 </tr>
                             <?php endforeach ?>
