@@ -28,6 +28,38 @@ class Category extends MY_Controller
     }
 
 
+    public function search($page = null)
+    {
+        if (isset($_POST['keyword'])) {
+            $this->session->set_userdata('keyword', $this->input->post('keyword'));
+        } else {
+            redirect(base_url('category'));
+        }
+
+        $keyword = $this->session->userdata('keyword');
+        $data['title']      = 'Admin: Category';
+        $data['content']    = $this->category->like('title', $keyword)->paginate($page)->get();
+        // total seluruh data dalam tabel category
+        $data['total_rows'] = $this->category->like('title', $keyword)->count();
+        // 3 parameter untuk membuat pagination 
+        $data['pagination'] = $this->category->makePagination(
+            base_url('category/search'),
+            // merubah posisi halaman pagination dari segmen 4 ke segmen 3 (pengaturannya ada di bagian [57]routes.php)
+            3,
+            $data['total_rows']
+        );
+        $data['page']       = 'pages/category/index';
+
+        $this->view($data);
+    }
+    // untuk menghapust keyword jika sudak tidak digunakan
+    public function reset()
+    {
+        $this->session->unset_userdata('keyword');
+        redirect(base_url('category'));
+    }
+
+
     public function create()
     {
         if (!$_POST) {

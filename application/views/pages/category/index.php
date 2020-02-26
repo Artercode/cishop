@@ -8,19 +8,20 @@
                     <span>Kategori</span>
                     <a href="<?= base_url('category/create') ?>" class="btn btn-sm btn-secondary">Tambah</a>
                     <div class="float-right">
-                        <form action="#">
-                            <div class="input-group">
-                                <input type="text" class="form-cotrol form-control-sm text-center" placeholder="Cari">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-secondary btn-sm">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <a href="#" class="btn btn-secondary btn-sm">
-                                        <i class="fas fa-eraser"></i>
-                                    </a>
-                                </div>
+                        <!-- search -->
+                        <?= form_open(base_url('category/search'), ['method' => 'POST']) ?>
+                        <div class="input-group">
+                            <input type="text" name="keyword" class="form-control form-control-sm text-center" placeholder="Cari" value="<?= $this->session->userdata('keyword') ?>">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <a href="<?= base_url('category/reset') ?>" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-eraser"></i>
+                                </a>
                             </div>
-                        </form>
+                        </div>
+                        <?= form_close() ?>
                     </div>
                 </div>
                 <div class="card-body">
@@ -36,8 +37,8 @@
                         <tbody>
                             <!-- $no untuk membuat no urut dalam tabel -->
                             <!-- untuk $perPage harus diisi secara manual -->
-                            <?php $no = (($this->uri->segment(2) ?? 1) - 1) * 5; ?>
-                            <?php foreach ($content as $row) : $no++; ?>
+                            <?php $no = 0;
+                            foreach ($content as $row) : $no++; ?>
                                 <tr>
                                     <td><?= $no ?></td>
                                     <td><?= $row->title ?></td>
