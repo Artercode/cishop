@@ -55,7 +55,7 @@ class MY_Model extends CI_Model
         return $this;
     }
     //  mencari data yang mirip pada semua kolom dalam suatu tabel
-    public function orlike($column, $condition)
+    public function orLike($column, $condition)
     {
         $this->db->or_like($column, $condition);
         return $this;

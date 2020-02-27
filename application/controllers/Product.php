@@ -5,7 +5,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Product extends MY_Controller
 {
 
-
     public function __construct()
     {
         parent::__construct();
@@ -34,6 +33,49 @@ class Product extends MY_Controller
 
         $this->view($data);
     }
+
+
+    public function search($page = null)
+    {
+        if (isset($_POST['keyword'])) {
+            $this->session->set_userdata('keyword', $this->input->post('keyword'));
+        } else {
+            redirect(base_url('product'));
+        }
+
+        $keyword = $this->session->userdata('keyword');
+        $data['title']      = 'Admin: Produk';
+        $data['content']    = $this->product->select(
+            [
+                'product.id', 'product.title AS product_title', 'product.image', 'product.price', 'product.is_available',
+                'category.title AS category_title'
+            ]
+        )
+            ->join('category')
+            ->like('product.title', $keyword)
+            ->orLike('description', $keyword)
+            ->paginate($page)
+            ->get();
+        // total seluruh data dalam tabel category
+        $data['total_rows'] = $this->product->like('product.title', $keyword)->orLike('description', $keyword)->count();
+        // 3 parameter untuk membuat pagination 
+        $data['pagination'] = $this->product->makePagination(
+            base_url('product/search'),
+            // merubah posisi halaman pagination dari segmen 4 ke segmen 3 (pengaturannya ada di bagian [57]routes.php)
+            3,
+            $data['total_rows']
+        );
+        $data['page']       = 'pages/product/index';
+
+        $this->view($data);
+    }
+    // untuk menghapust keyword jika sudak tidak digunakan
+    public function reset()
+    {
+        $this->session->unset_userdata('keyword');
+        redirect(base_url('product'));
+    }
+
 
     public function create()
     {
