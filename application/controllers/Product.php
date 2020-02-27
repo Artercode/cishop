@@ -71,6 +71,52 @@ class Product extends MY_Controller
         redirect(base_url('product'));
     }
 
+    public function edit($id)
+    {
+        $data['content'] = $this->product->where('id', $id)->first();
+
+        if (!$data['content']) {
+            $this->session->set_flashdata('warning', 'Maaf, data tidak dapat ditemukan');
+            redirect(base_url('product'));
+        }
+
+        if (!$_POST) {
+            $data['input']  = $data['content'];
+        } else {
+            $data['input']  = (object) $this->input->post(null, true);
+        }
+
+        if (!empty($_FILES) && $_FILES['image']['name'] !== '') {
+            $imageName  = url_title($data['input']->title, '-', true) . '-' . date('YmdHis');
+            $upload     = $this->product->uploadImage('image', $imageName);
+            if ($upload) {
+                // jika ada gambar akan dihapus terlebih dahulu
+                if ($data['content']->image !== '') {
+                    $this->product->deleteImage($data['content']->image);
+                }
+                $data['input']->image   = $upload['file_name'];
+            } else {
+                redirect(base_url('product/create'));
+            }
+        }
+
+        if (!$this->product->validate()) {
+            $data['title']          = 'Ubah product';
+            $data['form_action']    = base_url("product/edit/$id");
+            $data['page']           = 'pages/product/form';
+
+            $this->view($data);
+            return;
+        }
+        // mencari data di kolom id, berdasarkan id dan update
+        if ($this->product->where('id', $id)->update($data['input'])) {
+            $this->session->set_flashdata('success', 'Data berhasil disimpan!');
+        } else {
+            $this->session->set_flashdata('error', 'Ooops! Terjadi suatu kesalahan');
+        }
+        redirect(base_url('product'));
+    }
+
     public function unique_slug()
     {
         $slug       = $this->input->post('slug');
