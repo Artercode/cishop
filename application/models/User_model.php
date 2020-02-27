@@ -15,12 +15,12 @@ class User_model extends MY_Model
         ];
     }
 
-    public function getValidationRule()
+    public function getValidationRules()
     {
         $validationRules = [
             [
                 'field' => 'name',
-                'label' => 'Name',
+                'label' => 'Nama',
                 'rules' => 'trim|required'
             ],
             [
