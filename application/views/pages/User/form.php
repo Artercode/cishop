@@ -38,18 +38,20 @@
                             <label for="" class="form-check-label">Member</label>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label for="">Status</label>
                         <br>
                         <div class="form-check form-check-inline">
-                            <?= form_radio(['name' => 'is_active', 'value' => '1', 'checked' => $input->is_active == 'admin' ? true : false, 'form-check-input']) ?>
+                            <?= form_radio(['name' => 'is_active', 'value' => '1', 'checked' => $input->is_active == 1 ? true : false, 'form-check-input']) ?>
                             <label for="" class="form-check-label">Aktif</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <?= form_radio(['name' => 'is_active', 'value' => '0', 'checked' => $input->is_active == 'member' ? true : false, 'form-check-input']) ?>
+                            <?= form_radio(['name' => 'is_active', 'value' => '0', 'checked' => $input->is_active == 0 ? true : false, 'form-check-input']) ?>
                             <label for="" class="form-check-label">Tidak Aktif</label>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label for="">Foto</label>
                         <br>
