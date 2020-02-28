@@ -10,21 +10,21 @@
                     Formulir Alamat Pengiriman
                 </div>
                 <div class="card-body">
-                    <form action="" class="">
+                    <form action="<?= base_url("checkout/create") ?>" method="POST">
                         <div class="form-group">
                             <label for="">Nama</label>
-                            <input type="text" class="form-control" name="name" placeholder="Masukan nama penerima">
-                            <small class="form-text text-danger">Nama harus diisi.</small>
+                            <input type="text" class="form-control" name="name" placeholder="Masukan nama penerima" value="<?= $input->name ?>">
+                            <?= form_error('name') ?>
                         </div>
                         <div class="form-group">
                             <label for="">Alamat</label>
-                            <textarea name="address" id="" cols="30" rows="5" class="form-control"></textarea>
-                            <small class="form-text text-danger">Alamat harus diisi</small>
+                            <textarea name="address" id="" cols="30" rows="5" class="form-control"><?= $input->address ?></textarea>
+                            <?= form_error('address') ?>
                         </div>
                         <div class="form-group">
                             <label for="">Telepon</label>
-                            <input type="text" class="form-control" name="phone" placeholder="Masukan nomer telepon penerima">
-                            <small class="form-text text-danger">Nomer telepon harus diisi.</small>
+                            <input type="text" class="form-control" name="phone" placeholder="Masukan nomer telepon penerima" value="<?= $input->phone ?>">
+                            <?= form_error('phone') ?>
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
