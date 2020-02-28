@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Profile extends MY_Controller
 {
-
+    private $id;
 
     public function __construct()
     {
