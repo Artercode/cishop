@@ -58,6 +58,42 @@ class Shop extends MY_Controller
         // untuk Pfunction view ada di app../controllers/core/MY_Controler.php
         $this->view($data);
     }
+
+    public function search($page = null)
+    {
+        if (isset($_POST['keyword'])) {
+            $this->session->set_userdata('keyword', $this->input->post('keyword'));
+        } else {
+            redirect(base_url('/'));
+        }
+
+        $keyword = $this->session->userdata('keyword');
+        $data['title']      = 'Pencarian: Produk';
+        $data['content']    = $this->shop->select(
+            [
+                'product.id', 'product.title AS product_title',
+                'product.description', 'product.image', 'product.price', 'product.is_available',
+                'category.title AS category_title', 'category.slug AS category_slug'
+            ]
+        )
+            ->join('category')
+            ->like('product.title', $keyword)
+            ->orLike('product.description', $keyword)
+            ->paginate($page)
+            ->get();
+        // total seluruh data dalam tabel category
+        $data['total_rows'] = $this->shop->like('product.title', $keyword)->orLike('product.description', $keyword)->count();
+        // 3 parameter untuk membuat pagination 
+        $data['pagination'] = $this->shop->makePagination(
+            base_url('shop/search'),
+            // merubah posisi halaman pagination dari segmen 4 ke segmen 3 (pengaturannya ada di bagian [57]routes.php)
+            3,
+            $data['total_rows']
+        );
+        $data['page']       = 'pages/home/index';
+
+        $this->view($data);
+    }
 }
 
 /* End of file Shop.php */

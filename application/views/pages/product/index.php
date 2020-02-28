@@ -13,7 +13,7 @@
                             <div class="input-group">
                                 <input type="text" name="keyword" class="form-cotrol form-control-sm text-center" placeholder="Cari" value="<?= $this->session->userdata('keyword') ?>">
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-secondary btn-sm">
+                                    <button type="submit" class="btn btn-info btn-sm">
                                         <i class="fas fa-search"></i>
                                     </button>
                                     <a href="<?= base_url('product/reset') ?>" class="btn btn-secondary btn-sm">
