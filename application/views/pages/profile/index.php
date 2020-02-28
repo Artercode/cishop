@@ -1,5 +1,6 @@
 <!-- profil -->
 <main role="main" class="container">
+    <?php $this->load->view('layouts/_alert'); ?>
     <div class="row">
         <!-- kolom kiri -->
         <?php $this->load->view('layouts/_menu'); ?>
@@ -19,7 +20,7 @@
                         <div class="card-body">
                             <p>Nama: <?= $content->name ?></p>
                             <p>Email: <?= $content->email ?></p>
-                            <a href="profile-update.html" class="btn btn-primary">Edit</a>
+                            <a href="<?= base_url("/profile/update/$content->id") ?>" class="btn btn-primary">Edit</a>
                         </div>
                     </div>
                 </div>
