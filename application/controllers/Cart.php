@@ -111,6 +111,25 @@ class Cart extends MY_Controller
         }
         redirect(base_url('/cart/index'));
     }
+
+    public function delete($id)
+    {
+        if (!$_POST) {
+            redirect(base_url('cart/index'));
+        }
+        // jika tidak ada data dalam database yang sesuai dengan $id
+        if (!$this->cart->where('id', $id)->first()) {
+            $this->session->set_flashdata('warning', 'Maaf! Data tidak ditemukan!');
+            redirect(base_url('cart/index'));
+        }
+        // ########## proses delete dan alart ##########
+        if ($this->cart->where('id', $id)->delete()) {
+            $this->session->set_flashdata('success', 'Data berhasil dihapus!');
+        } else {
+            $this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan.');
+        }
+        redirect(base_url('cart/index'));
+    }
 }
 
 /* End of file Cart.php */
