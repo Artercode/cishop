@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
     <div class="container">
         <!-- judul navbar -->
-        <a class="navbar-brand" href="#">CIShop</a>
+        <a class="navbar-brand" href="<?= base_url('home') ?>">CIShop</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
