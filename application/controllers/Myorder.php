@@ -45,10 +45,60 @@ class Myorder extends MY_Controller
             ->join('product')
             ->where('orders_detail.id_orders', $data['order']->id)
             ->get();
-
         $data['page']           = 'pages/myorder/detail';
 
         $this->view($data);
+    }
+
+    public function confirm($invoice)
+    {
+        $data['order']  = $this->myorder->where('invoice', $invoice)->first();
+        if (!$data['order']) {
+            $this->session->set_flashdata('warning', 'Data tidak ditemukan.');
+            redirect(base_url('/myorder'));
+        }
+
+        if ($data['order']->status !== 'waiting') {
+            $this->session->set_falshdata('warning', 'Bukti transfer sudah dikirim.');
+            redirect(base_url("myorder/detail/$invoice"));
+        }
+
+        if (!$_POST) {
+            $data['input']      = (object) $this->myorder->getDefaultValues();
+        } else {
+            $data['input']      = (object) $this->input->post(null, true);
+        }
+
+        if (!empty($_FILES) && $_FILES['image']['name'] !== '') {
+            $imageName  = url_title($invoice, '-', true) . '-' . date('YmdHis');
+            $upload     = $this->myorder->uploadImage('image', $imageName);
+            if ($upload) {
+                $data['image']  = $upload['file_name'];
+            } else {
+                redirect(base_url("myorder/confirm/$invoice"));
+            }
+        }
+
+        if (!$this->myorder->validate()) {
+            $data['title']          = 'Konfirmasi Order';
+            $data['form_action']    = base_url("myorder/confirm/$invoice");
+            $data['page']           = 'pages/myorder/confirm';
+
+            $this->view($data);
+            return;
+        }
+        // overwrite properti table
+        $this->myorder->table = 'order_detail';
+
+        if ($this->myorder->create($data['input'])) {
+            // overwrite properti table
+            $this->myorder->table = 'orders';
+            $this->myorder->where('id', $data['input']->id_order)->update(['status' => 'paid']);
+            $this->session->set_flashdata('success', 'Data berhasil disimpan!');
+        } else {
+            $this->session->set_flashdata('error', 'Ooops! Terjadi suatu kesalahan');
+        }
+        redirect(base_url("myorder/detail/$invoice"));
     }
 }
 
