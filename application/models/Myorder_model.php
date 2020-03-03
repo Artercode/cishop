@@ -22,19 +22,19 @@ class Myorder_model extends MY_Model
     {
         $validationRules = [
             [
-                'field' => 'acount_name',
+                'field' => 'account_name',
                 'label' => 'Nama Pemilik',
                 'rules' => 'trim|required'
             ],
             [
-                'field' => 'acount_number',
+                'field' => 'account_number',
                 'label' => 'No. Rekening',
                 'rules' => 'trim|required|max_length[50]'
             ],
             [
                 'field' => 'nominal',
                 'label' => 'Nominal',
-                'rules' => 'trim|required|numaric'
+                'rules' => 'trim|required|numeric'
             ],
             [
                 'field' => 'image',

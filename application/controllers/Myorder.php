@@ -21,7 +21,7 @@ class Myorder extends MY_Controller
 
     public function index()
     {
-        $data['tile']       = 'Daftar Order';
+        $data['title']       = 'Daftar Order';
         $data['content']    = $this->myorder->where('id_user', $this->id)
             ->orderBy('date', 'DESC')->get();
         $data['page']       = 'pages/myorder/index';
@@ -73,7 +73,7 @@ class Myorder extends MY_Controller
             $imageName  = url_title($invoice, '-', true) . '-' . date('YmdHis');
             $upload     = $this->myorder->uploadImage('image', $imageName);
             if ($upload) {
-                $data['image']  = $upload['file_name'];
+                $data['input']->image  = $upload['file_name'];
             } else {
                 redirect(base_url("myorder/confirm/$invoice"));
             }
@@ -87,18 +87,27 @@ class Myorder extends MY_Controller
             $this->view($data);
             return;
         }
-        // overwrite properti table
-        $this->myorder->table = 'order_detail';
+        // overwrite properti table yang ada di Myorder_model.php
+        $this->myorder->table = 'orders_confirm';
 
         if ($this->myorder->create($data['input'])) {
-            // overwrite properti table
+            // overwrite properti table yang tadi
             $this->myorder->table = 'orders';
-            $this->myorder->where('id', $data['input']->id_order)->update(['status' => 'paid']);
+            $this->myorder->where('id', $data['input']->id_orders)->update(['status' => 'paid']);
             $this->session->set_flashdata('success', 'Data berhasil disimpan!');
         } else {
             $this->session->set_flashdata('error', 'Ooops! Terjadi suatu kesalahan');
         }
         redirect(base_url("myorder/detail/$invoice"));
+    }
+
+    public function image_required()
+    {
+        if (empty($_FILES) || $_FILES['image']['name'] === '') {
+            $this->session->set_flashdata('image_error', 'Bukti transfer tidak boleh kosong!');
+            return false;
+        }
+        return true;
     }
 }
 
