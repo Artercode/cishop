@@ -31,6 +31,38 @@ class Order extends MY_Controller
 
       $this->view($data);
    }
+   public function search($page = null)
+   {
+      if (isset($_POST['keyword'])) {
+         $this->session->set_userdata('keyword', $this->input->post('keyword'));
+      } else {
+         redirect(base_url('order'));
+      }
+
+      $keyword = $this->session->userdata('keyword');
+      $data['title']      = 'Admin: Order';
+      $data['content']    = $this->order->like('invoice', $keyword)
+         ->orderBy('date', 'DESC')
+         ->paginate($page)->get();
+      // total seluruh data dalam tabel category
+      $data['total_rows'] = $this->order->like('invoice', $keyword)->count();
+      // 3 parameter untuk membuat pagination 
+      $data['pagination'] = $this->order->makePagination(
+         base_url('order/search'),
+         // merubah posisi halaman pagination dari segmen 4 ke segmen 3 (pengaturannya ada di bagian [57]routes.php)
+         3,
+         $data['total_rows']
+      );
+      $data['page']       = 'pages/order/index';
+
+      $this->view($data);
+   }
+   // untuk menghapust keyword jika sudak tidak digunakan
+   public function reset()
+   {
+      $this->session->unset_userdata('keyword');
+      redirect(base_url('order'));
+   }
 
    public function detail($id)
    {
